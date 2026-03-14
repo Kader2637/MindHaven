@@ -21,7 +21,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     setMounted(true);
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) setUserEmail(user.email);
+      // Perbaikan di baris ini: tambahkan ?? null
+      if (user) setUserEmail(user.email ?? null);
     };
     getUser();
   }, []);
