@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion"; // Perbaikan: Tambah Variants
 import { supabase } from "../../lib/supabase";
 import MoodGarden from "@/app/components/MoodGarden";
 import {
@@ -131,12 +131,14 @@ export default function DashboardPage() {
     return <CloudSun size={24} className="text-amber-500" />;
   };
 
-  const containerVariants = {
+  // Perbaikan: Tambah tipe Variants
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
-  const itemVariants = {
+  // Perbaikan: Tambah tipe Variants
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
@@ -180,7 +182,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-2">
-            {greeting}, <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">{isLoading ? '...' : stats.profile?.full_name?.split(' ')[0] || 'Aetherian'}</span>.
+            {greeting}, <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">{isLoading ? '...' : stats.profile?.full_name?.split(' ')[0] || 'User'}</span>.
           </h1>
           <p className="text-slate-500 font-medium flex items-center gap-2 mt-2">
             {getGreetingIcon()} <span className="italic">{isLoading ? "Memuat data personal..." : `"${stats.dailyInsight}"`}</span>
