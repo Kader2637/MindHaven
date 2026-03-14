@@ -3,15 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  ArrowRight, Brain, Sparkles, Activity, ShieldCheck, 
-  MessageCircle, HeartPulse, Leaf, Zap, ChevronDown, 
+import {
+  ArrowRight, Brain, Sparkles, Activity, ShieldCheck,
+  MessageCircle, HeartPulse, Leaf, Zap, ChevronDown,
   CheckCircle2, Star, Users, Lock, Smile, Clock, BarChart
 } from "lucide-react";
-
-// ==========================================
-// DATA MOCKUP (Membuat page kaya data)
-// ==========================================
 
 const statsData = [
   { id: 1, value: "24/7", label: "Ketersediaan AI" },
@@ -101,72 +97,57 @@ const faqs = [
   },
 ];
 
-// ==========================================
-// VARIASI ANIMASI BARU (Scroll & Float)
-// ==========================================
-
-const fadeInUpScroll = {
+const fadeInUpScroll: any = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const staggerContainerScroll = {
+const staggerContainerScroll: any = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-const floatAnimation = {
+const floatAnimation: any = {
   y: ["0%", "-10%", "0%"],
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
 };
 
-const pulseGlow = {
+const pulseGlow: any = {
   scale: [1, 1.2, 1],
   opacity: [0.1, 0.3, 0.1],
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
 };
 
-// ==========================================
-// KOMPONEN UTAMA PAGE
-// ==========================================
-
 export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
-  // Deteksi scroll untuk efek navbar atau elemen lain jika diperlukan
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Animasi Framer Motion (Hero)
-  const fadeUp = {
+  const fadeUp: any = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
   };
 
-  const staggerContainer = {
+  const staggerContainer: any = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
   };
 
   return (
     <div className="overflow-x-hidden bg-[#F8FAF5] text-slate-800 font-sans">
-      
-      {/* ==========================================
-          1. HERO SECTION (Immersive & Grand)
-          ========================================== */}
+
       <section className="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden border-b border-emerald-100/50">
-        {/* Abstract Background Shapes (Now Animated) */}
-        <motion.div animate={pulseGlow} className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-300/40 rounded-full blur-[100px] -z-10"></motion.div>
-        <motion.div animate={{...pulseGlow, transition: { duration: 6, repeat: Infinity, delay: 1 }}} className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-300/40 rounded-full blur-[120px] -z-10"></motion.div>
+        <motion.div animate={pulseGlow as any} className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-300/40 rounded-full blur-[100px] -z-10"></motion.div>
+        <motion.div animate={{ ...(pulseGlow as any), transition: { duration: 6, repeat: Infinity, delay: 1 } } as any} className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-300/40 rounded-full blur-[120px] -z-10"></motion.div>
 
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Hero Copywriting */}
-          <motion.div 
+
+          <motion.div
             className="lg:col-span-7 space-y-8"
             initial="hidden" animate="visible" variants={staggerContainer}
           >
@@ -177,16 +158,16 @@ export default function Home() {
               </span>
               Platform Kesehatan Mental Generasi Baru
             </motion.div>
-            
+
             <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
-              Ketenangan pikiran <br className="hidden md:block"/>
+              Ketenangan pikiran <br className="hidden md:block" />
               dimulai dari <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Sini.</span>
             </motion.h1>
-            
+
             <motion.p variants={fadeUp} className="text-xl text-slate-600 leading-relaxed max-w-2xl font-medium">
               MindHaven adalah teman cerita AI yang dilatih dengan metode psikologi klinis. Ceritakan bebanmu, urai rasa cemasmu, dan temukan kembali senyummu—kapan pun, di mana pun.
             </motion.p>
-            
+
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 pt-6">
               <Link href="/register" className="flex items-center justify-center gap-2 px-8 py-4 bg-emerald-950 text-white font-bold rounded-full hover:bg-emerald-800 transition shadow-xl shadow-emerald-900/20 text-lg group">
                 Mulai Perjalanan Gratis <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ArrowRight className="group-hover:text-emerald-300 transition-colors" size={20} /></motion.div>
@@ -196,10 +177,9 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Trust Indicators */}
             <motion.div variants={fadeUp} className="pt-8 flex items-center gap-6">
               <div className="flex -space-x-4">
-                {[1,2,3,4].map((i) => (
+                {[1, 2, 3, 4].map((i) => (
                   <img key={i} src={`https://api.dicebear.com/7.x/notionists/svg?seed=${i}A&backgroundColor=e2e8f0`} alt="user" className="w-12 h-12 rounded-full border-4 border-[#F8FAF5] bg-slate-200" />
                 ))}
               </div>
@@ -212,15 +192,13 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Hero Visual / Mockup Chat (Now with Floating/Spring Animation) */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-5 relative"
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }} 
-            animate={{ opacity: 1, scale: 1, rotate: 0 }} 
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
           >
-            <motion.div animate={floatAnimation} className="bg-white p-6 rounded-[2.5rem] shadow-2xl border border-slate-100 relative z-10">
-              {/* Header Mockup */}
+            <motion.div animate={floatAnimation as any} className="bg-white p-6 rounded-[2.5rem] shadow-2xl border border-slate-100 relative z-10">
               <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
@@ -234,8 +212,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
-              {/* Body Mockup */}
+
               <div className="space-y-4 mb-6">
                 <div className="bg-slate-50 p-4 rounded-2xl rounded-tl-none w-[90%] text-slate-700 text-sm border border-slate-100">
                   Hai. Aku perhatikan akhir-akhir ini kamu jarang *check-in* mood. Ada yang sedang mengganggu pikiranmu hari ini?
@@ -248,7 +225,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Input Mockup */}
               <div className="bg-slate-100 rounded-full h-14 flex items-center px-4 justify-between border border-slate-200">
                 <span className="text-slate-400 text-sm font-medium">Ketik balasanmu...</span>
                 <div className="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white shadow-sm">
@@ -256,8 +232,7 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-            
-            {/* Decor Elements around mockup (Floating independently) */}
+
             <motion.div animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} className="absolute -top-6 -right-6 bg-amber-100 p-4 rounded-2xl shadow-lg border border-amber-200 z-20">
               <Smile className="text-amber-600" size={32} />
             </motion.div>
@@ -268,11 +243,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          2. STATS BAR SECTION (Now Scroll Animated)
-          ========================================== */}
       <section className="py-12 bg-emerald-950 text-white relative z-20">
-        <motion.div 
+        <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={staggerContainerScroll}
           className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-emerald-800/50"
         >
@@ -285,12 +257,9 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ==========================================
-          3. CORE FEATURES (BENTO GRID with Scroll & Hover)
-          ========================================== */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto mb-20"
           >
@@ -299,12 +268,12 @@ export default function Home() {
             <p className="text-lg text-slate-600">Kami tidak asal menebak. Setiap fitur di MindHaven didasarkan pada riset psikologi dan dirancang untuk memberikan dampak positif yang nyata pada keseharianmu.</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainerScroll}
             className="grid md:grid-cols-2 gap-8"
           >
             {featuresList.map((feat) => (
-              <motion.div 
+              <motion.div
                 key={feat.id} variants={fadeInUpScroll}
                 whileHover={{ y: -10, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -321,12 +290,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          4. HOW IT WORKS (Scroll Staggered Steps)
-          ========================================== */}
       <section className="py-24 bg-slate-50 border-y border-slate-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
@@ -334,16 +300,15 @@ export default function Home() {
             <p className="text-slate-600">Sangat mudah untuk memulai. Tidak butuh data pribadi rumit.</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerContainerScroll}
             className="grid md:grid-cols-4 gap-8 relative"
           >
-            {/* Connecting line for desktop */}
             <div className="hidden md:block absolute top-12 left-[10%] w-[80%] h-1 bg-slate-200 -z-10"></div>
-            
+
             {stepData.map((step, index) => (
               <motion.div variants={fadeInUpScroll} key={index} className="relative pt-4 group">
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.2, rotate: 360 }} transition={{ duration: 0.5 }}
                   className="w-16 h-16 bg-emerald-600 text-white text-xl font-bold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-200 border-4 border-slate-50 cursor-pointer"
                 >
@@ -357,12 +322,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          5. TESTIMONIALS (Scroll Reveal)
-          ========================================== */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
           >
@@ -375,7 +337,7 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainerScroll}
             className="grid md:grid-cols-3 gap-6"
           >
@@ -400,15 +362,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          6. PRICING & COMMITMENT (Scroll Entrance)
-          ========================================== */}
       <section className="py-24 bg-emerald-950 text-white relative overflow-hidden">
-        {/* Dekorasi */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-900 skew-x-12 transform origin-top -z-10"></div>
-        
+
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
@@ -417,11 +375,10 @@ export default function Home() {
             <p className="text-xl text-emerald-200 max-w-2xl mx-auto">Kami percaya bantuan psikologis tidak boleh terhalang oleh tebalnya dompet. Oleh karena itu, fitur esensial MindHaven akan selalu gratis.</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainerScroll}
             className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
           >
-            {/* Free Tier */}
             <motion.div variants={fadeInUpScroll} className="bg-white text-slate-900 p-10 rounded-[2.5rem] shadow-2xl relative hover:shadow-emerald-900/50 transition-shadow">
               <div className="absolute top-0 right-8 transform -translate-y-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">
                 Paling Populer
@@ -447,7 +404,6 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Donation/Supporter Tier */}
             <motion.div variants={fadeInUpScroll} className="bg-emerald-900/50 border border-emerald-800 p-10 rounded-[2.5rem] flex flex-col justify-between">
               <div>
                 <h3 className="text-3xl font-bold text-white mb-2">Supporter</h3>
@@ -475,12 +431,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          7. FAQ SECTION
-          ========================================== */}
       <section className="py-24 bg-[#F8FAF5]">
         <div className="max-w-3xl mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="text-4xl font-bold text-center text-slate-900 mb-12"
           >
@@ -488,20 +441,20 @@ export default function Home() {
           </motion.h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }}
                 key={index} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm"
               >
-                <button 
+                <button
                   onClick={() => setActiveFaq(activeFaq === index ? null : index)}
                   className="w-full px-8 py-6 text-left font-bold text-slate-800 flex justify-between items-center focus:outline-none hover:bg-slate-50 transition"
                 >
                   <span className="text-lg">{faq.q}</span>
-                  <ChevronDown className={`transform transition-transform text-emerald-600 ${activeFaq === index ? "rotate-180" : ""}`} size={24}/>
+                  <ChevronDown className={`transform transition-transform text-emerald-600 ${activeFaq === index ? "rotate-180" : ""}`} size={24} />
                 </button>
                 <AnimatePresence>
                   {activeFaq === index && (
-                    <motion.div 
+                    <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -519,22 +472,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==========================================
-          8. FINAL CALL TO ACTION (Pulse Animated)
-          ========================================== */}
       <section className="py-20 bg-white">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, type: "spring" }}
           className="max-w-5xl mx-auto px-6"
         >
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[3rem] p-12 md:p-20 text-center text-white shadow-2xl relative overflow-hidden">
-            {/* Dekorasi CTA (Animated) */}
             <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 5, repeat: Infinity }} className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></motion.div>
             <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }} transition={{ duration: 6, repeat: Infinity, delay: 2 }} className="absolute bottom-0 left-0 w-64 h-64 bg-black rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></motion.div>
-            
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-6 relative z-10">Jangan biarkan harimu <br/>berakhir dengan kelabu.</h2>
+
+            <h2 className="text-4xl md:text-6xl font-extrabold mb-6 relative z-10">Jangan biarkan harimu <br />berakhir dengan kelabu.</h2>
             <p className="text-xl text-emerald-100 mb-10 max-w-2xl mx-auto relative z-10">Buat akun gratismu sekarang, dan biarkan kami mendengarkan semua ceritamu hari ini.</p>
-            
+
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex justify-center relative z-10">
               <Link href="/register" className="px-10 py-5 bg-white text-emerald-700 font-extrabold rounded-full shadow-xl text-xl transition-shadow hover:shadow-emerald-900/30">
                 Buat Akun Sekarang
