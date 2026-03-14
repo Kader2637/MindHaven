@@ -37,18 +37,18 @@ export const metadata: Metadata = {
     description: "Temukan ketenangan dengan teknologi AI Therapy dan fitur pelacakan mood paling inovatif.",
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "MindHaven Dashboard Preview",
+        url: "/icon.png",
+        width: 512,
+        height: 512,
+        alt: "MindHaven Logo",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "MindHaven | Konsultasi AI & Kesehatan Mental",
     description: "Ruang aman digital untuk pikiranmu. Coba AI Therapy sekarang.",
-    images: ["/og-image.jpg"],
+    images: ["/icon.png"],
   },
   robots: {
     index: true,
@@ -79,7 +79,6 @@ export default function RootLayout({
     <html lang="id" className="scroll-smooth">
       <head>
         <meta name="theme-color" content="#10b981" />
-        <link rel="icon" href="/icon.png" sizes="any" />
       </head>
       <body className={`${inter.className} bg-[#F8FAF5] text-slate-800 m-0 p-0 antialiased`}>
         {children}
