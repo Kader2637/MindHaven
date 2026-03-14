@@ -4,13 +4,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
-import { motion, Variants } from "framer-motion"; // <-- Tambahkan Variants
-import { Heart, ArrowLeft, Mail, Lock, Sparkles, ShieldCheck, ArrowRight, Github } from "lucide-react";
+import { motion } from "framer-motion";
+import { Heart, ArrowLeft, Mail, Lock, ShieldCheck, ArrowRight, Github } from "lucide-react";
 
-// <-- Ganti "easeOut" (string) menjadi format Bezier Curve [0, 0, 0, 0]
-const fadeUp: Variants = {
+// Vaksin anti-error TypeScript: Ganti "easeOut" jadi angka array dan tambahkan as const
+const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
+  }
 };
 
 export default function LoginPage() {
@@ -103,13 +107,13 @@ export default function LoginPage() {
             }}
             className="w-full max-w-md mx-auto space-y-8"
           >
-            <motion.div variants={fadeUp} className="space-y-2">
+            <motion.div variants={fadeUp as any} className="space-y-2">
               <h3 className="text-3xl font-bold text-slate-900">Masuk Akun</h3>
               <p className="text-slate-500 font-light">Masukkan detail akun Anda untuk melanjutkan.</p>
             </motion.div>
 
             {/* 3. FORM INPUT DENGAN ONSUBMIT */}
-            <motion.form variants={fadeUp} className="space-y-5" onSubmit={handleLogin}>
+            <motion.form variants={fadeUp as any} className="space-y-5" onSubmit={handleLogin}>
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-slate-700 ml-1">Email</label>
                 <div className="relative group">
@@ -156,7 +160,7 @@ export default function LoginPage() {
             </motion.form>
 
             {/* DIVIDER */}
-            <motion.div variants={fadeUp} className="relative py-2">
+            <motion.div variants={fadeUp as any} className="relative py-2">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-100"></div>
               </div>
@@ -166,7 +170,7 @@ export default function LoginPage() {
             </motion.div>
 
             {/* SOCIAL LOGIN */}
-            <motion.div variants={fadeUp} className="grid grid-cols-2 gap-4">
+            <motion.div variants={fadeUp as any} className="grid grid-cols-2 gap-4">
               <button type="button" className="flex items-center justify-center gap-2 py-3.5 border border-slate-200 rounded-2xl hover:bg-slate-50 transition-colors text-slate-700 font-medium">
                 <svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" /><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" /><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" /></svg>
                 Google
@@ -177,7 +181,7 @@ export default function LoginPage() {
               </button>
             </motion.div>
 
-            <motion.p variants={fadeUp} className="text-center text-slate-500 text-sm">
+            <motion.p variants={fadeUp as any} className="text-center text-slate-500 text-sm">
               Belum punya akun?{" "}
               <Link href="/register" className="text-emerald-600 font-bold hover:underline">Daftar Gratis</Link>
             </motion.p>
