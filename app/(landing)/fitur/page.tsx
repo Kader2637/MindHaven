@@ -6,29 +6,30 @@ import { motion, Variants } from "framer-motion";
 import {
   MessageCircle, Activity, Wind, Heart, ShieldCheck,
   Brain, Zap, Lock, Sparkles, MoveRight, Clock, Star,
-  Smartphone, BarChart3, CloudRain, Sun, ShieldAlert
+  Smartphone, BarChart3, CloudRain, Sun, ShieldAlert,
+  Target, LayoutDashboard, CheckCircle2
 } from "lucide-react";
 
 const mainFeatures = [
   {
-    title: "AI Chat Therapy (CBT)",
-    desc: "Bukan sekadar bot. AI kami menggunakan metode Cognitive Behavioral Therapy untuk membantu mendeteksi distorsi kognitif dan memberikan restrukturisasi pikiran secara real-time.",
-    icon: <MessageCircle size={32} />,
+    title: "Aether AI Therapy (CBT)",
+    desc: "Asisten cerdas yang dilatih dengan metode Cognitive Behavioral Therapy untuk membantu mendeteksi distorsi kognitif dan merestrukturisasi pola pikir secara instan.",
+    icon: <Brain size={32} />,
     color: "bg-emerald-500",
     bgLight: "bg-emerald-50",
     border: "border-emerald-100"
   },
   {
-    title: "Mood Garden Tracker",
-    desc: "Visualisasikan kesehatan mentalmu dalam bentuk taman digital. Setiap jurnal yang kamu isi membantu tanaman virtualmu tumbuh dan mekar.",
+    title: "Mood Garden Evolution",
+    desc: "Visualisasi pertumbuhan mental dalam bentuk taman digital dinamis. Warna dan rimbunnya pohon berubah secara otomatis mengikuti fluktuasi emosimu.",
     icon: <Activity size={32} />,
     color: "bg-teal-500",
     bgLight: "bg-teal-50",
     border: "border-teal-100"
   },
   {
-    title: "Guided Breathing",
-    desc: "Latihan napas interaktif dengan pola 4-7-8 untuk menenangkan sistem saraf parasimpatis saat kamu merasa cemas atau panic attack.",
+    title: "Interactive 4-7-8 Relax",
+    desc: "Mode pernapasan penuh layar yang dirancang untuk meredakan serangan cemas dengan panduan visual orb yang sinkron dengan detak jantung.",
     icon: <Wind size={32} />,
     color: "bg-blue-500",
     bgLight: "bg-blue-50",
@@ -36,11 +37,29 @@ const mainFeatures = [
   }
 ];
 
+const subFeatures = [
+  {
+    title: "Misi Harian Cerdas",
+    desc: "Sistem pelacakan tugas otomatis yang memantau kebiasaan self-care harianmu tanpa perlu input manual yang rumit.",
+    icon: <Target className="text-emerald-500" />
+  },
+  {
+    title: "Capsule of Hope",
+    desc: "Simpan pesan positif saat kamu merasa bahagia dan biarkan sistem membukanya saat kamu berada di titik terendah.",
+    icon: <Heart className="text-rose-500" />
+  },
+  {
+    title: "Statistik Pikiran",
+    desc: "Analisis mendalam tentang tren interaksi emosionalmu selama 7 hari terakhir untuk pemahaman diri yang lebih baik.",
+    icon: <BarChart3 className="text-amber-500" />
+  }
+];
+
 const technicalSpecs = [
-  { title: "Enkripsi Total", icon: <Lock />, text: "Data curhatan dienkripsi end-to-end." },
-  { title: "Respon Kilat", icon: <Zap />, text: "Latensi AI di bawah 1 detik." },
-  { title: "Privasi Akun", icon: <ShieldCheck />, text: "Identitas anonim sepenuhnya terjaga." },
-  { title: "Multi-Platform", icon: <Smartphone />, text: "Akses lancar dari HP maupun Laptop." },
+  { title: "End-to-End Encryption", icon: <Lock />, text: "Privasi total untuk setiap curhatan." },
+  { title: "Ultra-Low Latency", icon: <Zap />, text: "Respons AI yang sangat cepat dan akurat." },
+  { title: "Anonymous Identity", icon: <ShieldCheck />, text: "Keamanan identitas tanpa data pribadi sensitif." },
+  { title: "Cross-Device Sync", icon: <Smartphone />, text: "Akses mulus dari perangkat mobile maupun desktop." },
 ];
 
 const fadeUp: Variants = {
@@ -61,28 +80,33 @@ export default function FiturPage() {
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-0 right-0 w-96 h-96 bg-emerald-200/50 rounded-full blur-[100px] -z-10"
+          className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-200/40 rounded-full blur-[120px] -z-10"
+        />
+        <motion.div
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-200/30 rounded-full blur-[100px] -z-10"
         />
 
         <div className="max-w-6xl mx-auto px-6">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="text-center space-y-8">
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-emerald-100 text-emerald-800 font-bold text-sm shadow-sm">
-              <Sparkles size={16} className="text-emerald-500" /> Platform Inovatif AETHER CODE
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-emerald-100 text-emerald-800 font-black text-[10px] uppercase tracking-[0.3em] shadow-sm">
+              <Sparkles size={14} className="text-emerald-500 animate-pulse" /> Platform MindHaven v2.0
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-8xl font-black text-slate-900 leading-[1.05] tracking-tighter">
-              Fitur Canggih untuk <br />
-              <span className="text-emerald-600">Pikiran yang Tenang.</span>
+            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.95] tracking-tighter italic">
+              Ekosistem <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Kesehatan Digital.</span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
-              Kami menggabungkan algoritma cerdas dengan empati terdalam untuk menciptakan alat bantu kesehatan mental yang bisa diandalkan kapan saja.
+            <motion.p variants={fadeUp} className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+              MindHaven bukan sekadar aplikasi, melainkan teman perjalanan yang menggabungkan sains psikologi klinis dengan teknologi AI tercanggih.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-24 bg-white border-y border-slate-200 relative">
+      <section className="py-24 bg-white border-y border-slate-100 relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-3 gap-8">
             {mainFeatures.map((feat, idx) => (
@@ -92,16 +116,17 @@ export default function FiturPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                whileHover={{ y: -10 }}
-                className={`${feat.bgLight} p-10 rounded-[2.5rem] border ${feat.border} group transition-all duration-500 shadow-sm hover:shadow-2xl`}
+                whileHover={{ y: -12 }}
+                className={`${feat.bgLight} p-12 rounded-[3.5rem] border ${feat.border} group transition-all duration-500 shadow-sm hover:shadow-2xl relative overflow-hidden`}
               >
-                <div className={`w-16 h-16 ${feat.color} text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg transform group-hover:rotate-12 transition-transform`}>
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                <div className={`w-16 h-16 ${feat.color} text-white rounded-[1.5rem] flex items-center justify-center mb-10 shadow-xl transform group-hover:rotate-12 transition-transform`}>
                   {feat.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">{feat.title}</h3>
-                <p className="text-slate-600 leading-relaxed font-light mb-8 text-lg">{feat.desc}</p>
-                <Link href="/register" className="inline-flex items-center gap-2 text-slate-900 font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
-                  Coba Sekarang <MoveRight size={20} className="text-emerald-600" />
+                <h3 className="text-2xl font-black text-slate-900 mb-5 tracking-tight uppercase italic leading-none">{feat.title}</h3>
+                <p className="text-slate-600 leading-relaxed font-medium mb-10 text-lg opacity-80">{feat.desc}</p>
+                <Link href="/register" className="inline-flex items-center gap-3 text-slate-900 font-black text-[10px] uppercase tracking-[0.2em] group-hover:gap-5 transition-all">
+                  Aktifkan Fitur <MoveRight size={18} className="text-emerald-600" />
                 </Link>
               </motion.div>
             ))}
@@ -109,71 +134,101 @@ export default function FiturPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-[#F8FAF5] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-32 bg-[#F8FAF5]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20 space-y-4">
+            <h2 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em]">Sistem Pendukung Aether</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic">Detail Perawatan <span className="text-emerald-500">Mental.</span></h3>
+          </div>
 
+          <div className="grid md:grid-cols-3 gap-8">
+            {subFeatures.map((sub, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
+              >
+                <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                  {sub.icon}
+                </div>
+                <h4 className="text-xl font-black text-slate-900 mb-3 uppercase tracking-tight">{sub.title}</h4>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">{sub.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-10"
+            className="space-y-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
-              Kesehatan Mental <br /> Dalam Genggaman.
-            </h2>
+            <div className="space-y-6">
+              <h2 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9] uppercase italic">
+                Teknologi yang <br /> <span className="text-emerald-500 text-6xl md:text-7xl">Melindungi.</span>
+              </h2>
+              <p className="text-slate-500 text-lg font-medium leading-relaxed max-w-lg">
+                Keamanan data adalah prioritas utama AETHER CODE. Kami memastikan setiap curhatanmu tetap menjadi rahasiamu.
+              </p>
+            </div>
 
             <div className="grid sm:grid-cols-2 gap-6">
               {technicalSpecs.map((spec, i) => (
-                <div key={i} className="flex gap-4 p-5 bg-white rounded-3xl border border-slate-200 shadow-sm hover:border-emerald-200 transition-colors">
-                  <div className="text-emerald-500 bg-emerald-50 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                <div key={i} className="flex gap-5 p-6 bg-[#F8FAF5] rounded-[2rem] border border-slate-100 hover:border-emerald-200 transition-colors">
+                  <div className="text-emerald-600 bg-white w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
                     {spec.icon}
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-800">{spec.title}</h4>
-                    <p className="text-xs text-slate-500 mt-1">{spec.text}</p>
+                    <h4 className="font-black text-slate-900 uppercase text-[11px] tracking-widest">{spec.title}</h4>
+                    <p className="text-xs text-slate-500 mt-1 font-bold">{spec.text}</p>
                   </div>
                 </div>
               ))}
             </div>
-
-            <p className="text-slate-600 font-light italic border-l-4 border-emerald-500 pl-6">
-              &quot;Misi kami di AETHER CODE adalah memastikan teknologi ini dapat diakses oleh siapa saja yang butuh didengarkan, tanpa terkecuali.&quot;
-            </p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative lg:pl-10"
           >
-            <div className="bg-slate-900 rounded-[3rem] p-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/20 blur-3xl rounded-full" />
-
-              <div className="flex justify-between items-center mb-10 border-b border-white/10 pb-6">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-amber-400" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-400" />
+            <div className="bg-slate-900 rounded-[4rem] p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] relative overflow-hidden border-4 border-slate-800">
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full" />
+              
+              <div className="flex justify-between items-center mb-12 border-b border-white/5 pb-8">
+                <div className="flex gap-2.5">
+                  <div className="w-3.5 h-3.5 rounded-full bg-rose-500/80" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-amber-500/80" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/80" />
                 </div>
-                <div className="text-emerald-400 font-mono text-xs tracking-widest uppercase">System Active</div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-white/40 font-mono text-sm border-b border-white/5 pb-4">
-                  <BarChart3 size={18} /> <span>Emotion Analysis... 100%</span>
-                </div>
-                <div className="flex items-center gap-4 text-emerald-400 font-mono text-sm border-b border-white/5 pb-4">
-                  <Sun size={18} /> <span>CBT Reframing: Success</span>
-                </div>
-                <div className="flex items-center gap-4 text-blue-400 font-mono text-sm border-b border-white/5 pb-4">
-                  <CloudRain size={18} /> <span>Stress Level: Decreasing</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-emerald-400 font-black text-[9px] tracking-[0.4em] uppercase">Security Active</span>
                 </div>
               </div>
 
-              <div className="mt-12">
-                <Link href="/login" className="flex items-center justify-center gap-3 w-full py-4 bg-emerald-500 text-slate-950 font-black rounded-2xl hover:bg-emerald-400 transition-all text-lg">
-                  Login untuk Mencoba <MoveRight />
+              <div className="space-y-8">
+                <div className="flex items-center gap-5 text-white/50 font-black text-[10px] uppercase tracking-[0.3em] border-b border-white/5 pb-5 group hover:text-white transition-colors">
+                  <LayoutDashboard size={18} className="text-emerald-500" /> <span>Dashboard Sync... OK</span>
+                </div>
+                <div className="flex items-center gap-5 text-white/50 font-black text-[10px] uppercase tracking-[0.3em] border-b border-white/5 pb-5 group hover:text-white transition-colors">
+                  <CheckCircle2 size={18} className="text-emerald-500" /> <span>Daily Mission: 100%</span>
+                </div>
+                <div className="flex items-center gap-5 text-white/50 font-black text-[10px] uppercase tracking-[0.3em] border-b border-white/5 pb-5 group hover:text-white transition-colors">
+                  <ShieldAlert size={18} className="text-rose-500" /> <span>Panic Detector: Ready</span>
+                </div>
+              </div>
+
+              <div className="mt-16">
+                <Link href="/login" className="flex items-center justify-center gap-4 w-full py-5 bg-emerald-500 text-slate-950 font-black rounded-3xl hover:bg-emerald-400 transition-all text-sm uppercase tracking-[0.3em] shadow-xl shadow-emerald-900/40">
+                  Akses Dashboard <MoveRight />
                 </Link>
               </div>
             </div>
@@ -183,43 +238,52 @@ export default function FiturPage() {
 
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="bg-red-50 border border-red-100 rounded-[3rem] p-12 flex flex-col md:flex-row items-center gap-10">
-            <div className="w-20 h-20 bg-red-500 text-white rounded-3xl flex items-center justify-center shrink-0 animate-pulse shadow-xl shadow-red-200">
-              <ShieldAlert size={40} />
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-rose-600 rounded-[4rem] p-12 md:p-16 flex flex-col md:flex-row items-center gap-12 shadow-2xl shadow-rose-200"
+          >
+            <div className="w-24 h-24 bg-white/20 backdrop-blur-md text-white rounded-[2rem] flex items-center justify-center shrink-0 animate-pulse border border-white/30">
+              <ShieldAlert size={48} />
             </div>
-            <div className="space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold text-red-900">Kebutuhan Darurat?</h3>
-              <p className="text-red-700/80 font-light leading-relaxed">
-                Jika kamu merasa dalam bahaya atau butuh pertolongan profesional segera, MindHaven memiliki daftar hotline bantuan darurat yang bisa kamu akses tanpa perlu login.
+            <div className="space-y-5 text-center md:text-left">
+              <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Kondisi Darurat?</h3>
+              <p className="text-rose-50 font-medium leading-relaxed opacity-90 text-lg">
+                MindHaven menyediakan akses langsung ke hotline profesional nasional tanpa perlu melalui proses pendaftaran. Karena keselamatanmu adalah yang utama.
               </p>
-              <Link href="/bantuan-profesional" className="inline-flex items-center gap-2 text-red-600 font-bold hover:underline">
-                Buka Layanan Darurat <MoveRight size={18} />
+              <Link href="/panic" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-rose-600 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] hover:bg-rose-50 transition-all shadow-xl">
+                Buka Panic Button <MoveRight size={18} />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="pt-24 bg-emerald-950 text-white rounded-t-[3rem] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay -z-10" />
+      <section className="pt-32 bg-emerald-950 text-white rounded-t-[5rem] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay -z-10" />
         <div className="max-w-4xl mx-auto px-6 text-center pb-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-10"
+            className="space-y-12"
           >
-            <Heart size={48} className="mx-auto text-emerald-400" />
-            <h2 className="text-4xl md:text-7xl font-bold tracking-tight leading-tight">Mulai Perjalananmu <br /> Sekarang.</h2>
-            <p className="text-emerald-100/70 text-xl font-light max-w-2xl mx-auto leading-relaxed">
-              Bergabunglah dengan ribuan orang yang telah menemukan ruang aman mereka di MindHaven. Dikembangkan dengan sepenuh hati oleh AETHER CODE.
+            <div className="w-20 h-20 bg-emerald-500 rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-emerald-500/20">
+              <Heart size={40} className="text-emerald-950" fill="currentColor" />
+            </div>
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] uppercase italic">
+              Pulih Mulai <br /> <span className="text-emerald-400">Hari Ini.</span>
+            </h2>
+            <p className="text-emerald-100/60 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+              Bergabunglah bersama ribuan orang lainnya yang telah mempercayakan perjalanan pemulihan mental mereka kepada AETHER MindHaven.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-              <Link href="/register" className="px-10 py-5 bg-emerald-500 text-emerald-950 font-bold rounded-full text-xl shadow-xl hover:bg-emerald-400 transition-all hover:scale-105 duration-300">
-                Buat Akun Gratis
+            <div className="flex flex-col sm:flex-row justify-center gap-6 pt-6">
+              <Link href="/register" className="px-12 py-6 bg-emerald-500 text-emerald-950 font-black rounded-full text-lg shadow-2xl hover:bg-emerald-400 transition-all hover:scale-105 duration-300 uppercase tracking-widest">
+                Daftar Gratis
               </Link>
-              <Link href="/login" className="px-10 py-5 bg-transparent border-2 border-white/20 text-white font-bold rounded-full text-xl hover:bg-white/10 transition-all">
-                Masuk ke Akun
+              <Link href="/login" className="px-12 py-6 bg-transparent border-2 border-white/20 text-white font-black rounded-full text-lg hover:bg-white/10 transition-all uppercase tracking-widest">
+                Masuk Dashboard
               </Link>
             </div>
           </motion.div>

@@ -4,11 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../../lib/supabase";
 import { 
-  Send, Mic, Sparkles, MicOff, Users, 
-  Plus, MessageSquare, History, X, ArrowRight, Trash2, Menu, Clock, AlertTriangle, SearchX
+  Send, Mic, Sparkles, MicOff, 
+  Plus, MessageSquare, X, ArrowRight, Trash2, Menu, AlertTriangle, SearchX
 } from "lucide-react";
 
-// --- KOMPONEN PEMBANTU: TYPEWRITER EFFECT ---
 const Typewriter = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState("");
   
@@ -18,7 +17,7 @@ const Typewriter = ({ text }: { text: string }) => {
       setDisplayText((prev) => prev + text.charAt(i));
       i++;
       if (i === text.length) clearInterval(timer);
-    }, 20); // Kecepatan ngetik (ms)
+    }, 20); 
     return () => clearInterval(timer);
   }, [text]);
 
@@ -34,10 +33,6 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  // --- SISTEM 10 MENIT & UI ---
-  const [startTime, setStartTime] = useState(new Date());
-  const [showMatchPrompt, setShowMatchPrompt] = useState(false);
   const [showOptions, setShowOptions] = useState(true);
   const [sessionToDelete, setSessionToDelete] = useState<string | null>(null);
 
@@ -54,8 +49,6 @@ export default function ChatPage() {
     if (currentSessionId) {
       fetchMessages(currentSessionId);
       setIsSidebarOpen(false);
-      setStartTime(new Date()); 
-      setShowMatchPrompt(false);
       setShowOptions(false);
     } else {
       setMessages([]);
@@ -65,17 +58,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    
-    const timer = setInterval(() => {
-      const now = new Date();
-      const diff = now.getTime() - startTime.getTime();
-      if (diff > 600000 && messages.length > 4 && !showMatchPrompt) {
-        setShowMatchPrompt(true);
-      }
-    }, 10000);
-
-    return () => clearInterval(timer);
-  }, [messages, startTime, showMatchPrompt]);
+  }, [messages]);
 
   const fetchSessions = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -154,7 +137,6 @@ export default function ChatPage() {
   return (
     <div className="flex h-[calc(100vh-100px)] lg:h-[calc(100vh-140px)] gap-0 lg:gap-6 max-w-7xl mx-auto relative bg-white lg:bg-transparent overflow-hidden">
       
-      {/* SIDEBAR */}
       <AnimatePresence>
         {(isSidebarOpen || (typeof window !== 'undefined' && window.innerWidth >= 1024)) && (
           <motion.aside 
@@ -202,7 +184,6 @@ export default function ChatPage() {
         )}
       </AnimatePresence>
 
-      {/* CHAT AREA */}
       <div className="flex-1 bg-white lg:border border-slate-100 lg:rounded-[3rem] shadow-sm flex flex-col relative overflow-hidden h-full">
         <div className="p-4 lg:p-6 border-b border-slate-50 flex items-center justify-between bg-white/90 backdrop-blur-md sticky top-0 z-10">
           <div className="flex items-center gap-4">
@@ -239,7 +220,6 @@ export default function ChatPage() {
                 <div className={`p-5 lg:p-6 rounded-[2rem] text-sm font-medium shadow-sm leading-relaxed max-w-[85%] lg:max-w-[75%] ${
                   m.role === 'user' ? 'bg-slate-900 text-white rounded-tr-none shadow-xl' : 'bg-white border border-slate-50 text-slate-600 rounded-tl-none'
                 }`}>
-                  {/* TYPEWRITER HANYA UNTUK PESAN AI YANG BARU MUNCUL */}
                   {m.role === 'assistant' && (i === messages.length - 1) && !currentSessionId ? (
                     <Typewriter text={m.content} />
                   ) : (
@@ -260,38 +240,17 @@ export default function ChatPage() {
           <div ref={scrollRef} />
         </div>
 
-        {/* AJAKAN MATCHING (10 MENIT) */}
-        <AnimatePresence>
-          {showMatchPrompt && (
-            <motion.div initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} className="absolute bottom-32 left-4 right-4 lg:left-8 lg:right-8 bg-slate-900 text-white p-6 rounded-[2.5rem] shadow-2xl z-20 flex flex-col md:flex-row items-center justify-between gap-6 border border-emerald-500/20">
-              <div className="flex items-center gap-4 text-left">
-                <div className="p-4 bg-emerald-500 rounded-2xl shadow-lg"><Users size={24} /></div>
-                <div>
-                   <p className="text-xs font-black uppercase tracking-tight italic">Butuh teman bicara manusia?</p>
-                   <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">Ada seseorang yang merasakan hal serupa. Mau aku hubungkan?</p>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={() => setShowMatchPrompt(false)} className="p-4 text-slate-500 hover:text-white"><X size={20}/></button>
-                <button className="bg-emerald-500 px-6 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-emerald-400 transition-all">Hubungkan Sekarang</button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* INPUT AREA */}
         <div className="p-4 lg:p-8 bg-white border-t border-slate-50">
           <div className="max-w-4xl mx-auto bg-slate-100/50 rounded-[2rem] p-2 flex items-center gap-3 border border-slate-200 shadow-inner focus-within:bg-white transition-all">
             <button onClick={() => { setIsRecording(!isRecording); isRecording ? recognitionRef.current?.stop() : recognitionRef.current?.start(); }} className={`p-4 rounded-full transition-all ${isRecording ? 'bg-rose-500 text-white animate-pulse' : 'text-slate-400 hover:text-emerald-600'}`}>
               {isRecording ? <MicOff size={22}/> : <Mic size={22} />}
             </button>
-            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} placeholder="Ceritain aja di sini..." className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-semibold py-3 placeholder:italic" />
+            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} placeholder="Ceritain aja di sini..." className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-semibold py-3 placeholder:italic outline-none" />
             <button onClick={() => handleSend()} disabled={isLoading} className="bg-slate-900 text-white p-4 rounded-full hover:bg-emerald-600 active:scale-95 transition-all shadow-xl shadow-slate-200"><Send size={20} /></button>
           </div>
         </div>
       </div>
 
-      {/* --- CUSTOM DELETE MODAL --- */}
       <AnimatePresence>
         {sessionToDelete && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">

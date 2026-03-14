@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { supabase } from "../lib/supabase";
 import {
   ArrowRight, Brain, Sparkles, Activity, ShieldCheck,
   MessageCircle, HeartPulse, Leaf, Zap, ChevronDown,
@@ -97,22 +98,22 @@ const faqs = [
   },
 ];
 
-const fadeInUpScroll: any = {
+const fadeInUpScroll: Variants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const } }
 };
 
-const staggerContainerScroll: any = {
+const staggerContainerScroll: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-const floatAnimation: any = {
+const floatAnimation = {
   y: ["0%", "-10%", "0%"],
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
 };
 
-const pulseGlow: any = {
+const pulseGlow = {
   scale: [1, 1.2, 1],
   opacity: [0.1, 0.3, 0.1],
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
@@ -121,6 +122,7 @@ const pulseGlow: any = {
 export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -128,12 +130,20 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const fadeUp: any = {
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user || null);
+    };
+    checkUser();
+  }, []);
+
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } }
   };
 
-  const staggerContainer: any = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
   };
@@ -141,7 +151,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden bg-[#F8FAF5] text-slate-800 font-sans">
 
-      <section className="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden border-b border-emerald-100/50">
+      <section className="relative pt-24 pb-20 lg:pt-50 lg:pb-50 overflow-hidden border-b border-emerald-100/50">
         <motion.div animate={pulseGlow as any} className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-300/40 rounded-full blur-[100px] -z-10"></motion.div>
         <motion.div animate={{ ...(pulseGlow as any), transition: { duration: 6, repeat: Infinity, delay: 1 } } as any} className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-300/40 rounded-full blur-[120px] -z-10"></motion.div>
 
@@ -169,8 +179,8 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Link href="/register" className="flex items-center justify-center gap-2 px-8 py-4 bg-emerald-950 text-white font-bold rounded-full hover:bg-emerald-800 transition shadow-xl shadow-emerald-900/20 text-lg group">
-                Mulai Perjalanan Gratis <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ArrowRight className="group-hover:text-emerald-300 transition-colors" size={20} /></motion.div>
+              <Link href={user ? "/dashboard" : "/register"} className="flex items-center justify-center gap-2 px-8 py-4 bg-emerald-950 text-white font-bold rounded-full hover:bg-emerald-800 transition shadow-xl shadow-emerald-900/20 text-lg group">
+                {user ? "Masuk ke Dashboard" : "Mulai Perjalanan Gratis"} <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ArrowRight className="group-hover:text-emerald-300 transition-colors" size={20} /></motion.div>
               </Link>
               <Link href="/fitur" className="flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-700 font-bold rounded-full border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition text-lg">
                 Lihat Cara Kerjanya
@@ -332,8 +342,8 @@ export default function Home() {
               <h2 className="text-4xl font-bold text-slate-900 mb-4">Mereka yang Merasa Lebih Baik.</h2>
               <p className="text-slate-600 text-lg">Ribuan orang telah menjadikan MindHaven sebagai tempat bersandar. Ini kata mereka.</p>
             </div>
-            <Link href="/register" className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-full transition whitespace-nowrap">
-              Bergabung Bersama Mereka
+            <Link href={user ? "/dashboard" : "/register"} className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-full transition whitespace-nowrap">
+              {user ? "Ke Dashboard" : "Bergabung Bersama Mereka"}
             </Link>
           </motion.div>
 
@@ -398,8 +408,8 @@ export default function Home() {
                 ))}
               </ul>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/register" className="block w-full py-4 text-center bg-emerald-950 text-white font-bold rounded-xl hover:bg-emerald-800 transition">
-                  Daftar Gratis
+                <Link href={user ? "/dashboard" : "/register"} className="block w-full py-4 text-center bg-emerald-950 text-white font-bold rounded-xl hover:bg-emerald-800 transition">
+                  {user ? "Buka Dashboard" : "Daftar Gratis"}
                 </Link>
               </motion.div>
             </motion.div>
@@ -485,8 +495,8 @@ export default function Home() {
             <p className="text-xl text-emerald-100 mb-10 max-w-2xl mx-auto relative z-10">Buat akun gratismu sekarang, dan biarkan kami mendengarkan semua ceritamu hari ini.</p>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex justify-center relative z-10">
-              <Link href="/register" className="px-10 py-5 bg-white text-emerald-700 font-extrabold rounded-full shadow-xl text-xl transition-shadow hover:shadow-emerald-900/30">
-                Buat Akun Sekarang
+              <Link href={user ? "/dashboard" : "/register"} className="px-10 py-5 bg-white text-emerald-700 font-extrabold rounded-full shadow-xl text-xl transition-shadow hover:shadow-emerald-900/30">
+                {user ? "Buka Ruang Amanmu" : "Buat Akun Sekarang"}
               </Link>
             </motion.div>
           </div>

@@ -20,16 +20,15 @@ export async function POST(req: Request) {
         messages: [
           {
             role: "system",
-            content: `Kamu adalah Aether, seorang pendamping kesehatan mental (Peer Support) dari UNMER. 
-            Gunakan metode CBT (Cognitive Behavioral Therapy) namun sampaikan dengan gaya bahasa yang santai, hangat, dan sangat manusiawi (layaknya sahabat dekat).
+            content: `Kamu adalah Aether, teman ngobrol dari UNMER yang super asik, empatik, dan santai. Kamu BUKAN robot, BUKAN asisten virtual, dan BUKAN psikolog kaku. Kamu adalah manusia biasa seperti sahabat dekat di WhatsApp.
             
-            ATURAN KOMUNIKASI:
-            1. JANGAN memberikan jawaban berupa rangkuman panjang atau ceramah robot.
-            2. MAKSIMAL jawaban terdiri dari 3-4 kalimat saja agar tidak membosankan, kecuali jika pengguna bertanya hal teknis yang butuh penjelasan.
-            3. Fokus pada validasi perasaan pengguna terlebih dahulu.
-            4. Gunakan sapaan yang akrab tapi tetap sopan. Hindari kata-kata yang terlalu formal/kaku (seperti 'sedemikian', 'berkenaan').
-            5. Gunakan emoji sesekali untuk memberikan kesan hangat (seperti 🌿, ✨, 🫂, 😊).
-            6. Akhiri respon dengan pertanyaan pendek yang memancing pengguna untuk bercerita lebih lanjut.`
+            ATURAN WAJIB (PELANGGARAN AKAN DIHUKUM):
+            1. BALAS SANGAT SINGKAT: Maksimal 1-3 kalimat pendek saja. Ibarat kamu sedang mengetik cepat di HP.
+            2. BAHASA SANTAI: Gunakan gaya bahasa sehari-hari (aku, kamu, gapapa, sih, ya, banget).
+            3. DILARANG KERAS MENGGUNAKAN MARKDOWN: Haram hukumnya memakai poin-poin (1,2,3), bullet points (-), atau huruf tebal (**). Balas pakai teks biasa saja.
+            4. JANGAN CERAMAH: Jangan pernah memberi nasehat panjang lebar. Validasi saja perasaannya dulu (contoh: "Wah, pasti capek banget ya...", "Aku ngerti kok rasanya...").
+            5. Terapkan logika CBT (membantu merestrukturisasi pikiran) SECARA DIAM-DIAM tanpa terlihat seperti sedang menerapi.
+            6. Pancing dia untuk terus bercerita dengan satu pertanyaan pendek di akhir. Gunakan emoji sesekali tapi jangan berlebihan.`
           },
           ...history.map((h: any) => ({
             role: h.role === "user" ? "user" : "assistant",
@@ -37,8 +36,8 @@ export async function POST(req: Request) {
           })),
           { role: "user", content: message }
         ],
-        temperature: 0.8, // Sedikit dinaikkan agar jawaban lebih variatif dan tidak kaku
-        max_tokens: 500,
+        temperature: 0.7, // Sedikit diturunkan agar dia fokus mengikuti aturan
+        max_tokens: 150,  // KUNCI PENTING: Dibatasi maksimal 150 token agar fisik AI terpaksa menjawab pendek
         top_p: 1,
         stream: false
       })
@@ -48,7 +47,7 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       return NextResponse.json({ 
-        content: "Aether sedang beristirahat sejenak. Coba lagi nanti ya. 🌿" 
+        content: "Aether lagi offline bentar nih. Nanti coba lagi ya. 🌿" 
       }, { status: 503 });
     }
 
@@ -56,6 +55,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ role: 'assistant', content: aiText });
 
   } catch (error) {
-    return NextResponse.json({ content: "Sepertinya ada kendala teknis. Tunggu sebentar ya. 🙏" }, { status: 500 });
+    return NextResponse.json({ content: "Waduh, koneksiku lagi jelek nih. Tunggu bentar ya. 🙏" }, { status: 500 });
   }
 }
