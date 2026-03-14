@@ -4,15 +4,19 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { 
   Heart, ArrowLeft, Mail, Lock, 
   User, ShieldCheck, ArrowRight, Github 
 } from "lucide-react";
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const } 
+  }
 };
 
 export default function RegisterPage() {
@@ -49,7 +53,6 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#F8FAF5] flex items-center justify-center p-4 md:p-8 relative overflow-hidden">
       
-      {/* DEKORASI BACKGROUND */}
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-100/50 rounded-full blur-[100px] -z-10" />
       <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-teal-100/40 rounded-full blur-[120px] -z-10" />
 
@@ -59,7 +62,6 @@ export default function RegisterPage() {
         className="w-full max-w-5xl bg-white rounded-[2.5rem] shadow-2xl border border-white overflow-hidden flex flex-col md:flex-row min-h-[650px]"
       >
         
-        {/* SISI KIRI: VISUAL & BRANDING */}
         <div className="hidden md:flex flex-1 bg-emerald-950 p-12 flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
           
@@ -90,20 +92,18 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* SISI KANAN: FORM REGISTER */}
         <div className="flex-1 p-8 md:p-16 flex flex-col justify-center bg-white">
           <motion.div 
             initial="hidden" animate="visible" 
             variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
             className="w-full max-w-md mx-auto space-y-8"
           >
-            <motion.div variants={fadeUp} className="space-y-2">
+            <motion.div variants={fadeUp as any} className="space-y-2">
               <h3 className="text-3xl font-bold text-slate-900 tracking-tight">Daftar Akun</h3>
               <p className="text-slate-500 font-light">Lengkapi data di bawah untuk bergabung.</p>
             </motion.div>
 
-            <motion.form variants={fadeUp} className="space-y-4" onSubmit={handleRegister}>
-              {/* NAMA LENGKAP */}
+            <motion.form variants={fadeUp as any} className="space-y-4" onSubmit={handleRegister}>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nama Lengkap</label>
                 <div className="relative group">
@@ -119,7 +119,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* EMAIL */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Alamat Email</label>
                 <div className="relative group">
@@ -135,7 +134,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* PASSWORD */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Password</label>
                 <div className="relative group">
@@ -163,7 +161,7 @@ export default function RegisterPage() {
               </motion.button>
             </motion.form>
 
-            <motion.div variants={fadeUp} className="text-center pt-2">
+            <motion.div variants={fadeUp as any} className="text-center pt-2">
               <p className="text-slate-500 text-sm">
                 Sudah punya akun?{" "}
                 <Link href="/login" className="text-emerald-600 font-bold hover:underline tracking-tight">Masuk di sini</Link>
