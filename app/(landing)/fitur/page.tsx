@@ -2,16 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { 
-  MessageCircle, Activity, Wind, Heart, ShieldCheck, 
+import { motion, Variants } from "framer-motion";
+import {
+  MessageCircle, Activity, Wind, Heart, ShieldCheck,
   Brain, Zap, Lock, Sparkles, MoveRight, Clock, Star,
   Smartphone, BarChart3, CloudRain, Sun, ShieldAlert
 } from "lucide-react";
 
-// ==========================================
-// DATA FITUR (Dibuat Padat & Kaya Data)
-// ==========================================
 const mainFeatures = [
   {
     title: "AI Chat Therapy (CBT)",
@@ -46,15 +43,12 @@ const technicalSpecs = [
   { title: "Multi-Platform", icon: <Smartphone />, text: "Akses lancar dari HP maupun Laptop." },
 ];
 
-// ==========================================
-// ANIMASI
-// ==========================================
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 1, 0.35, 1] } }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
 };
@@ -62,27 +56,25 @@ const staggerContainer = {
 export default function FiturPage() {
   return (
     <div className="bg-[#F8FAF5] text-slate-800 font-sans selection:bg-emerald-200 overflow-x-hidden">
-      
-      {/* 1. HERO SECTION (Visual Padat) */}
+
       <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Animated Background Orbs */}
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-0 right-0 w-96 h-96 bg-emerald-200/50 rounded-full blur-[100px] -z-10" 
+          className="absolute top-0 right-0 w-96 h-96 bg-emerald-200/50 rounded-full blur-[100px] -z-10"
         />
-        
+
         <div className="max-w-6xl mx-auto px-6">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="text-center space-y-8">
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-emerald-100 text-emerald-800 font-bold text-sm shadow-sm">
               <Sparkles size={16} className="text-emerald-500" /> Platform Inovatif AETHER CODE
             </motion.div>
-            
+
             <motion.h1 variants={fadeUp} className="text-5xl md:text-8xl font-black text-slate-900 leading-[1.05] tracking-tighter">
-              Fitur Canggih untuk <br/>
+              Fitur Canggih untuk <br />
               <span className="text-emerald-600">Pikiran yang Tenang.</span>
             </motion.h1>
-            
+
             <motion.p variants={fadeUp} className="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
               Kami menggabungkan algoritma cerdas dengan empati terdalam untuk menciptakan alat bantu kesehatan mental yang bisa diandalkan kapan saja.
             </motion.p>
@@ -90,12 +82,11 @@ export default function FiturPage() {
         </div>
       </section>
 
-      {/* 2. BENTO GRID FEATURES (Tidak Kosong) */}
       <section className="py-24 bg-white border-y border-slate-200 relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-3 gap-8">
             {mainFeatures.map((feat, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -118,11 +109,10 @@ export default function FiturPage() {
         </div>
       </section>
 
-      {/* 3. INTERACTIVE TECH SECTION (Mengarah ke Login) */}
       <section className="py-24 bg-[#F8FAF5] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -131,7 +121,7 @@ export default function FiturPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
               Kesehatan Mental <br /> Dalam Genggaman.
             </h2>
-            
+
             <div className="grid sm:grid-cols-2 gap-6">
               {technicalSpecs.map((spec, i) => (
                 <div key={i} className="flex gap-4 p-5 bg-white rounded-3xl border border-slate-200 shadow-sm hover:border-emerald-200 transition-colors">
@@ -151,8 +141,7 @@ export default function FiturPage() {
             </p>
           </motion.div>
 
-          {/* Visual Mockup (Alive/Animasi) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -160,7 +149,7 @@ export default function FiturPage() {
           >
             <div className="bg-slate-900 rounded-[3rem] p-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/20 blur-3xl rounded-full" />
-              
+
               <div className="flex justify-between items-center mb-10 border-b border-white/10 pb-6">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
@@ -192,7 +181,6 @@ export default function FiturPage() {
         </div>
       </section>
 
-      {/* 4. SOS SECTION (Penting) */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-red-50 border border-red-100 rounded-[3rem] p-12 flex flex-col md:flex-row items-center gap-10">
@@ -212,11 +200,10 @@ export default function FiturPage() {
         </div>
       </section>
 
-      {/* 5. FOOTER CALL TO ACTION (Padat & Menempel) */}
       <section className="pt-24 bg-emerald-950 text-white rounded-t-[3rem] relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay -z-10" />
         <div className="max-w-4xl mx-auto px-6 text-center pb-32 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
