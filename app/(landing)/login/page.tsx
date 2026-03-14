@@ -2,24 +2,23 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // Import Router
+import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // <-- Tambahkan Variants
 import { Heart, ArrowLeft, Mail, Lock, Sparkles, ShieldCheck, ArrowRight, Github } from "lucide-react";
 
-const fadeUp = {
+// <-- Ganti "easeOut" (string) menjadi format Bezier Curve [0, 0, 0, 0]
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } }
 };
 
 export default function LoginPage() {
-  // 1. STATE UNTUK LOGIKA LOGIN
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  // 2. FUNGSI LOGIN DINAMIS
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -33,7 +32,6 @@ export default function LoginPage() {
       if (error) {
         alert("Gagal Masuk: " + error.message);
       } else {
-        // Berhasil! Lempar ke dashboard
         router.push("/dashboard");
         router.refresh();
       }
@@ -46,30 +44,30 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAF5] flex items-center justify-center p-4 md:p-8 relative overflow-hidden">
-      
+
       {/* BACKGROUND ANIMASI HALUS */}
-      <motion.div 
+      <motion.div
         animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
         transition={{ duration: 20, repeat: Infinity }}
         className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-100/50 rounded-full blur-[100px] -z-10"
       />
-      <motion.div 
+      <motion.div
         animate={{ scale: [1, 1.3, 1], rotate: [0, -90, 0] }}
         transition={{ duration: 25, repeat: Infinity, delay: 2 }}
         className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-teal-100/40 rounded-full blur-[120px] -z-10"
       />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-5xl bg-white rounded-[2.5rem] shadow-2xl border border-white overflow-hidden flex flex-col md:flex-row min-h-[600px]"
       >
-        
+
         {/* SISI KIRI: VISUAL & INFO */}
         <div className="hidden md:flex flex-1 bg-emerald-950 p-12 flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          
+
           <Link href="/" className="flex items-center gap-2 text-white group relative z-10">
             <motion.div whileHover={{ x: -5 }} className="flex items-center gap-2">
               <ArrowLeft size={20} className="text-emerald-400" />
@@ -99,7 +97,7 @@ export default function LoginPage() {
 
         {/* SISI KANAN: FORM LOGIN */}
         <div className="flex-1 p-8 md:p-16 flex flex-col justify-center bg-white">
-          <motion.div 
+          <motion.div
             initial="hidden" animate="visible" variants={{
               visible: { transition: { staggerChildren: 0.1 } }
             }}
@@ -116,8 +114,8 @@ export default function LoginPage() {
                 <label className="text-sm font-semibold text-slate-700 ml-1">Email</label>
                 <div className="relative group">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={20} />
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -134,8 +132,8 @@ export default function LoginPage() {
                 </div>
                 <div className="relative group">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={20} />
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -145,7 +143,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <motion.button 
+              <motion.button
                 type="submit"
                 disabled={isLoading}
                 whileHover={{ scale: 1.02 }}
