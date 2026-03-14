@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { 
-  Phone, ShieldAlert, Heart, Info, 
-  ExternalLink, Siren, Wind, ShieldCheck, 
-  ArrowRight, MoveRight, CornerDownRight, HelpingHand 
+import { motion, Variants } from "framer-motion"; // <-- 1. Tambahkan impor Variants di sini
+import {
+  Phone, ShieldAlert, Heart, Info,
+  ExternalLink, Siren, Wind, ShieldCheck,
+  ArrowRight, MoveRight, CornerDownRight, HelpingHand
 } from "lucide-react";
 import Link from "next/link";
 
@@ -47,12 +47,13 @@ const groundingSteps = [
   { id: 1, label: "RASAKAN", text: "1 hal yang bisa dicicipi." },
 ];
 
-const fIn = {
+// <-- 2. Tambahkan tipe : Variants pada objek animasi ini
+const fIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const fUpStagger = {
+const fUpStagger: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
@@ -60,32 +61,32 @@ const fUpStagger = {
 export default function EmergencyPage() {
   return (
     <div className="bg-[#FDFDFD] text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden">
-      
+
       {/* ==========================================
           1. HERO SECTION (Light & Clean)
-          ========================================== */}
+          ========================================= */}
       <section className="relative pt-48 pb-20 px-6 overflow-hidden border-b border-slate-100">
         {/* Visual Soft Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-emerald-50 rounded-full blur-[120px] -z-10" />
-        
+
         <div className="max-w-6xl mx-auto text-center space-y-10 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }} 
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-slate-200 shadow-sm"
           >
             <ShieldAlert size={18} className="text-rose-500 animate-pulse" />
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Emergency Protocol</span>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             initial="hidden" animate="visible" variants={fIn}
             className="text-6xl md:text-9xl font-black text-slate-900 tracking-tighter leading-[0.85] uppercase"
           >
-            Akses <br/> <span className="text-emerald-600 font-black">Bantuan.</span>
+            Akses <br /> <span className="text-emerald-600 font-black">Bantuan.</span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
             className="text-xl md:text-2xl text-slate-500 font-light max-w-2xl mx-auto leading-relaxed"
           >
@@ -96,16 +97,16 @@ export default function EmergencyPage() {
 
       {/* ==========================================
           2. HOTLINE BENTO GRID (Light & Minimalist)
-          ========================================== */}
+          ========================================= */}
       <section className="py-24 px-6 bg-[#F8FAF5]">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
             variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
             className="grid lg:grid-cols-3 gap-8"
           >
             {hotlines.map((hotline, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 variants={fUpStagger}
                 whileHover={{ y: -10 }}
@@ -118,12 +119,12 @@ export default function EmergencyPage() {
                     </div>
                     <CornerDownRight className="text-slate-300" size={24} />
                   </div>
-                  
+
                   <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase leading-tight">{hotline.name}</h3>
                   <p className="text-slate-500 text-lg font-light leading-relaxed">{hotline.desc}</p>
                 </div>
-                
-                <a 
+
+                <a
                   href={`tel:${hotline.number}`}
                   className="mt-10 flex items-center justify-between w-full p-6 bg-slate-900 text-white font-black rounded-3xl hover:bg-emerald-600 transition-all duration-300 text-3xl shadow-xl"
                 >
@@ -137,20 +138,20 @@ export default function EmergencyPage() {
 
       {/* ==========================================
           3. GROUNDING ZONE (Clean Soft Style)
-          ========================================== */}
+          ========================================= */}
       <section className="py-32 px-6 bg-white relative overflow-hidden border-y border-slate-100">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 -z-10" />
-        
+
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="space-y-8">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-none text-slate-900 uppercase">Teknik <br/> <span className="text-emerald-600">Grounding.</span></h2>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-none text-slate-900 uppercase">Teknik <br /> <span className="text-emerald-600">Grounding.</span></h2>
             <p className="text-slate-500 font-light text-xl leading-relaxed">Fokuskan pikiran Anda pada momen saat ini menggunakan teknik 5-4-3-2-1. Ini membantu meredakan serangan panik secara instan.</p>
             <Wind size={40} className="text-emerald-600 animate-pulse" />
           </motion.div>
-          
+
           <div className="space-y-4">
             {groundingSteps.map((step, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -170,12 +171,11 @@ export default function EmergencyPage() {
 
       {/* ==========================================
           4. FINAL CTA & DISCLAIMER (Nyambung ke Footer Hitam)
-          ========================================== */}
-      {/* Warna bg-black tetap dipertahankan hanya di bagian ini agar transisi ke Footer Global kamu mulus */}
+          ========================================= */}
       <section className="bg-black text-white pt-32 pb-24 border-t border-slate-900 relative">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-12 relative z-10">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}
             className="max-w-3xl mx-auto"
           >
@@ -184,9 +184,9 @@ export default function EmergencyPage() {
             <p className="text-slate-400 text-xl md:text-2xl mb-16 font-light max-w-2xl mx-auto leading-relaxed">
               Tim AETHER CODE berkomitmen penuh untuk mendampingi langkah Anda. Jangan pernah ragu untuk mencari bantuan.
             </p>
-            
+
             <Link href="/" className="px-12 py-5 bg-white text-slate-950 font-black rounded-full hover:bg-emerald-500 hover:text-white transition-all shadow-xl text-xl inline-flex items-center gap-3">
-               Kembali ke Beranda <MoveRight size={22} />
+              Kembali ke Beranda <MoveRight size={22} />
             </Link>
           </motion.div>
 
