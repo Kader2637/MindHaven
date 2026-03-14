@@ -5,8 +5,69 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MindHaven | Ruang Aman untuk Pikiranmu",
-  description: "Platform kesehatan mental dan edukasi dari AETHER CODE",
+  title: {
+    default: "MindHaven | Konsultasi AI & Kesehatan Mental",
+    template: "%s | MindHaven"
+  },
+  description: "Ruang aman digital untuk kesehatan mentalmu. Dilengkapi dengan AI Chat Therapy, Mood Tracker, latihan pernapasan, dan bantuan krisis 24/7.",
+  keywords: [
+    "kesehatan mental", 
+    "konsultasi psikologi online", 
+    "AI therapy", 
+    "mood tracker Indonesia", 
+    "terapi CBT online", 
+    "meditasi", 
+    "MindHaven", 
+    "aplikasi kesehatan mental"
+  ],
+  authors: [{ name: "MindHaven Team" }],
+  creator: "MindHaven",
+  publisher: "MindHaven",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://mindhaven.my.id/",
+    siteName: "MindHaven",
+    title: "MindHaven | Solusi Cerdas Kesehatan Mental",
+    description: "Temukan ketenangan dengan teknologi AI Therapy dan fitur pelacakan mood paling inovatif.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MindHaven Dashboard Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MindHaven | Konsultasi AI & Kesehatan Mental",
+    description: "Ruang aman digital untuk pikiranmu. Coba AI Therapy sekarang.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +77,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className="scroll-smooth">
-      <body className={`${inter.className} bg-[#F8FAF5] text-slate-800 m-0 p-0`}>
+      <head>
+        <meta name="theme-color" content="#10b981" />
+        <link rel="icon" href="/icon.png" sizes="any" />
+      </head>
+      <body className={`${inter.className} bg-[#F8FAF5] text-slate-800 m-0 p-0 antialiased`}>
         {children}
       </body>
     </html>

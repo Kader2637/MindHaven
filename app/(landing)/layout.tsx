@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "../components/Navbar";
-import { Heart, Instagram, Github, Twitter, Mail } from "lucide-react";
+import { Instagram, Github, Twitter, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function LandingLayout({
@@ -10,61 +10,81 @@ export default function LandingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen selection:bg-emerald-500/30">
       <Navbar />
       
       <main className="flex-grow w-full">
         {children}
       </main>
 
-      {/* Footer Pindahan dari Root Layout */}
-      <footer className="bg-black text-white pt-24 pb-12 border-t border-slate-900">
+      <footer className="bg-black text-white pt-24 pb-12 border-t border-slate-900 overflow-hidden relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+        
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="space-y-6">
-              <div className="flex items-center gap-2">
-                <Heart className="text-emerald-500" size={24} fill="currentColor" />
-                <span className="text-2xl font-black tracking-tighter uppercase">MindHaven</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+            <div className="space-y-8">
+              <div className="flex items-center group">
+                <div className="relative h-12 w-auto">
+                  <img 
+                    src="/og-image.jpg" 
+                    alt="MindHaven Logo" 
+                    className="h-full w-auto object-contain brightness-0 invert"
+                  />
+                </div>
               </div>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Inisiatif teknologi dari <strong>AETHER CODE</strong> untuk menciptakan ruang aman bagi kesehatan mental.
+              <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                Platform kesehatan mental digital yang mengintegrasikan kecerdasan buatan untuk menciptakan ruang aman bagi siapa pun, kapan pun.
               </p>
-              <div className="flex gap-4">
-                <Instagram size={20} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" />
-                <Github size={20} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" />
-                <Twitter size={20} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" />
+              <div className="flex gap-5">
+                <Instagram size={20} className="text-slate-600 hover:text-emerald-500 cursor-pointer transition-all hover:scale-110" />
+                <Github size={20} className="text-slate-600 hover:text-emerald-500 cursor-pointer transition-all hover:scale-110" />
+                <Twitter size={20} className="text-slate-600 hover:text-emerald-500 cursor-pointer transition-all hover:scale-110" />
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h4 className="font-bold text-xs uppercase tracking-widest text-emerald-500">Menu</h4>
-              <div className="flex flex-col gap-3 text-sm text-slate-400 font-medium">
-                <Link href="/" className="hover:text-white transition">Beranda</Link>
-                <Link href="/tentang" className="hover:text-white transition">Tentang Kami</Link>
-                <Link href="/fitur" className="hover:text-white transition">Fitur Platform</Link>
+            <div className="space-y-8">
+              <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-emerald-500">Menu Navigasi</h4>
+              <div className="flex flex-col gap-4 text-sm text-slate-400 font-bold uppercase tracking-widest">
+                <Link href="/" className="hover:text-emerald-400 transition-colors">Beranda</Link>
+                <Link href="/tentang" className="hover:text-emerald-400 transition-colors">Tentang Kami</Link>
+                <Link href="/fitur" className="hover:text-emerald-400 transition-colors">Fitur Platform</Link>
+                <Link href="/contact" className="hover:text-emerald-400 transition-colors">Hubungi Kami</Link>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h4 className="font-bold text-xs uppercase tracking-widest text-emerald-500">Legalitas</h4>
-              <div className="flex flex-col gap-3 text-sm text-slate-400 font-medium">
-                <Link href="#" className="hover:text-white transition">Kebijakan Privasi</Link>
-                <Link href="#" className="hover:text-white transition">Syarat Ketentuan</Link>
+            <div className="space-y-8">
+              <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-emerald-500">Privasi & Keamanan</h4>
+              <div className="flex flex-col gap-4 text-sm text-slate-400 font-bold uppercase tracking-widest">
+                <Link href="#" className="hover:text-emerald-400 transition-colors">Kebijakan Privasi</Link>
+                <Link href="#" className="hover:text-emerald-400 transition-colors">Syarat & Ketentuan</Link>
+                <Link href="/panic" className="text-rose-500 hover:text-rose-400 transition-colors italic">Bantuan Darurat</Link>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h4 className="font-bold text-xs uppercase tracking-widest text-emerald-500">Hubungi Kami</h4>
-              <div className="p-5 bg-slate-900 rounded-3xl border border-slate-800 flex items-center gap-3">
-                <Mail size={18} className="text-emerald-500" />
-                <span className="text-xs text-slate-300">hello@aethercode.com</span>
+            <div className="space-y-8">
+              <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-emerald-500">Bantuan Langsung</h4>
+              <div className="p-6 bg-slate-900/50 rounded-[2rem] border border-slate-800 flex items-center gap-4 group hover:border-emerald-500/50 transition-all shadow-2xl">
+                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-black transition-all">
+                  <Mail size={18} />
+                </div>
+                <div className="overflow-hidden">
+                  <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Email Support</p>
+                  <p className="text-xs text-slate-200 font-bold truncate">support@mindhaven.app</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between gap-4 items-center">
-            <p className="text-[10px] text-slate-600 uppercase tracking-widest">© 2026 MindHaven by AETHER CODE.</p>
-            <p className="text-[10px] text-slate-600 uppercase tracking-widest">Dibuat dengan ❤️ untuk Indonesia.</p>
+          <div className="pt-10 border-t border-slate-900/50 flex flex-col md:flex-row justify-between gap-6 items-center">
+            <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.5em]">
+              © 2026 MindHaven Platform.
+            </p>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.5em]">
+                System Operational
+              </p>
+            </div>
           </div>
         </div>
       </footer>
