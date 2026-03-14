@@ -5,9 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Heart, Shield, Target, Sparkles, Code, MoveRight, Users, Globe2, Activity, ExternalLink } from "lucide-react";
 
-// ==========================================
-// DATA TIM AETHER CODE
-// ==========================================
 const teamMembers = [
   { name: "Abdul Kader", role: "Fullstack Developer", desc: "Arsitek sistem. Memastikan database, keamanan, dan logika AI MindHaven berjalan mulus.", image: "https://api.dicebear.com/7.x/notionists/svg?seed=Abdul&backgroundColor=10b981" },
   { name: "Rio Andhika P. P.", role: "UI/UX & Frontend", desc: "Mengubah kode rumit menjadi antarmuka visual yang menenangkan dan bersahabat.", image: "https://api.dicebear.com/7.x/notionists/svg?seed=Rio&backgroundColor=0f766e" },
@@ -22,17 +19,17 @@ const values = [
   { icon: <Activity size={24} />, title: "Berbasis Data", desc: "Setiap intervensi psikologis AI didasarkan pada metode CBT yang teruji secara klinis." },
 ];
 
-const fadeUp = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 1, 0.35, 1] } }
 };
 
-const staggerContainer = {
+const staggerContainer: any = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-const blobKeyframes = {
+const blobKeyframes: any = {
   borderRadius: ["50% 50% 50% 50%", "30% 70% 50% 50%", "50% 50% 30% 70%", "50% 50% 50% 50%"]
 };
 
@@ -40,7 +37,6 @@ export default function TentangPage() {
   return (
     <div className="bg-[#F8FAF5] text-slate-800 font-sans selection:bg-emerald-200 selection:text-emerald-900 overflow-x-hidden">
       
-      {/* 1. HERO SECTION */}
       <section className="relative min-h-[90vh] flex items-center pt-24 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98115_1px,transparent_1px),linear-gradient(to_bottom,#10b98115_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_50%,transparent_100%)] -z-10" />
         <motion.div animate={blobKeyframes} transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/4 -right-20 w-80 h-80 bg-emerald-100 blur-[80px] -z-20 opacity-50" />
@@ -85,7 +81,6 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* 2. THE VALUES */}
       <section className="py-24 bg-white border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -100,7 +95,6 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* 3. THE TEAM */}
       <section className="py-24 bg-[#F8FAF5]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -131,7 +125,6 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* 4. CONNECTED CTA (Hapus -mb-10 biar scrollbar nggak tabrakan) */}
       <section className="py-32 bg-emerald-950 text-white rounded-t-[3rem] relative overflow-hidden">
         <div className="absolute -left-20 bottom-0 w-96 h-96 bg-emerald-500 rounded-full blur-[90px] opacity-10 -z-10" />
         <Globe2 className="absolute top-10 -right-10 w-64 h-64 text-emerald-900 opacity-20 -z-10" />
@@ -139,7 +132,7 @@ export default function TentangPage() {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="inline-block mb-6">
             <Heart size={32} className="text-emerald-400" />
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight tracking-tight">Punya Visi Serupa?</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Punya Visi Serupa?</h2>
           <p className="text-emerald-200 text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             AETHER CODE selalu terbuka untuk kolaborasi demi menciptakan teknologi yang membawa dampak sosial positif yang terukur.
           </p>
