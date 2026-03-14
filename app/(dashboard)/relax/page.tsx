@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, TargetAndTransition } from "framer-motion"; // Perbaikan: Tambah TargetAndTransition
 import Link from "next/link";
 import { Wind, X, Play, Square, Activity } from "lucide-react";
 
@@ -49,7 +49,8 @@ export default function RelaxPage() {
     }
   };
 
-  const getOrbAnimation = () => {
+  // Perbaikan: Tambahkan tipe kembalian TargetAndTransition
+  const getOrbAnimation = (): TargetAndTransition => {
     switch (phase) {
       case "inhale":
         return { scale: 2.2, opacity: 0.8, backgroundColor: "#10b981", transition: { duration: 4, ease: "linear" } };
