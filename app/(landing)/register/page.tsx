@@ -4,10 +4,10 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import {
   Heart, ArrowLeft, Mail, Lock,
-  User, ShieldCheck, ArrowRight
+  User, ShieldCheck, ArrowRight, CheckCircle2
 } from "lucide-react";
 
 const fadeUp: Variants = {
@@ -24,6 +24,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -45,14 +46,14 @@ export default function RegisterPage() {
       if (error) throw error;
 
       if (data.user) {
-        alert("Registrasi Berhasil! Akun kamu otomatis aktif.");
-        router.push("/login");
+        setShowSuccess(true);
+        setTimeout(() => {
+          router.push("/login");
+        }, 2500);
       }
 
     } catch (error: any) {
       alert("Gagal daftar: " + error.message);
-      console.error("Detail Error:", error);
-    } finally {
       setLoading(false);
     }
   };
@@ -63,13 +64,41 @@ export default function RegisterPage() {
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-100/50 rounded-full blur-[100px] -z-10" />
       <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-teal-100/40 rounded-full blur-[120px] -z-10" />
 
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ type: "spring", bounce: 0.5 }}
+              className="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl flex flex-col items-center max-w-sm w-full text-center border border-emerald-100"
+            >
+              <motion.div 
+                initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: "spring" }}
+                className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-inner"
+              >
+                <CheckCircle2 size={40} />
+              </motion.div>
+              <h3 className="text-2xl font-black text-slate-800 tracking-tight mb-2">Pendaftaran Sukses!</h3>
+              <p className="text-slate-500 text-sm mb-8 leading-relaxed">
+                Akun MindHaven kamu otomatis aktif. Kami sedang menyiapkan ruanganmu...
+              </p>
+              <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-5xl bg-white rounded-[2.5rem] shadow-2xl border border-white overflow-hidden flex flex-col md:flex-row min-h-[650px]"
       >
-
-        {/* Kolom Kiri: Branding */}
         <div className="hidden md:flex flex-1 bg-emerald-950 p-12 flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
@@ -100,7 +129,6 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* Kolom Kanan: Form */}
         <div className="flex-1 p-8 md:p-16 flex flex-col justify-center bg-white">
           <motion.div
             initial="hidden" animate="visible"
@@ -113,7 +141,6 @@ export default function RegisterPage() {
             </motion.div>
 
             <motion.form variants={fadeUp as any} className="space-y-4" onSubmit={handleRegister}>
-              {/* Full Name */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nama Lengkap</label>
                 <div className="relative group">
@@ -127,7 +154,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Email */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Alamat Email</label>
                 <div className="relative group">
@@ -141,7 +167,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Password */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Password</label>
                 <div className="relative group">
@@ -155,7 +180,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Submit Button */}
               <motion.button
                 type="submit" disabled={loading}
                 whileHover={{ scale: 1.01 }}
