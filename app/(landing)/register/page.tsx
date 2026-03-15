@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabase"; // PASTIKAN DI SINI PAKAI SERVICE_ROLE_KEY UNTUK AUTO-CONFIRM
+import { supabase } from "../../lib/supabase"; 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
@@ -31,38 +31,26 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      // 1. Jalankan Sign Up
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${fullName}`,
-          },
-        },
+      const { data, error } = await supabase.auth.admin.createUser({
+        email: email,
+        password: password,
+        email_confirm: true,
+        user_metadata: {
+          full_name: fullName,
+          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${fullName}`,
+        }
       });
 
-      if (signUpError) throw signUpError;
+      if (error) throw error;
 
-      // 2. AUTO KONFIRMASI (Ngisi jam konfirmasi otomatis lewat kodingan)
       if (data.user) {
-        const { error: confirmError } = await supabase.auth.admin.updateUserById(
-          data.user.id,
-          { email_confirm: true } // Ini 'sihir'nya biar akun langsung verified tanpa klik email
-        );
-
-        if (confirmError) {
-          console.error("Gagal auto-confirm:", confirmError.message);
-          alert("Registrasi sukses, tapi gagal konfirmasi otomatis: " + confirmError.message);
-        } else {
-          alert("Akun berhasil dibuat dan otomatis aktif! Mengalihkan ke login...");
-          router.push("/login");
-        }
+        alert("Registrasi Berhasil! Akun langsung aktif tanpa verifikasi email.");
+        router.push("/login");
       }
 
     } catch (error: any) {
-      alert("Terjadi kesalahan: " + error.message);
+      alert("Gagal daftar: " + error.message);
+      console.error("Detail Error:", error);
     } finally {
       setLoading(false);
     }
