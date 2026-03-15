@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabase"; 
+import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
@@ -31,20 +31,21 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.admin.createUser({
-        email: email,
-        password: password,
-        email_confirm: true,
-        user_metadata: {
-          full_name: fullName,
-          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${fullName}`,
-        }
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${fullName}`,
+          },
+        },
       });
 
       if (error) throw error;
 
       if (data.user) {
-        alert("Registrasi Berhasil! Akun langsung aktif tanpa verifikasi email.");
+        alert("Registrasi Berhasil! Akun kamu otomatis aktif.");
         router.push("/login");
       }
 
