@@ -94,7 +94,7 @@ export default function LoginPage() {
           <div className="relative z-10 flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
             <ShieldCheck className="text-emerald-400 shrink-0" size={24} />
             <p className="text-xs text-emerald-50/60 font-light">
-              Data Anda dienkripsi secara aman menggunakan standar keamanan AETHER CODE v2.0
+              Data Anda dienkripsi secara aman menggunakan standar keamanan AETHER CODE 
             </p>
           </div>
         </div>
