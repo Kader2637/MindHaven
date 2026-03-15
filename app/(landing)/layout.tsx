@@ -57,7 +57,7 @@ export default function LandingLayout({
               <div className="flex flex-col gap-4 text-sm text-slate-400 font-bold uppercase tracking-widest">
                 <Link href="#" className="hover:text-emerald-400 transition-colors">Kebijakan Privasi</Link>
                 <Link href="#" className="hover:text-emerald-400 transition-colors">Syarat & Ketentuan</Link>
-                <Link href="/panic" className="text-rose-500 hover:text-rose-400 transition-colors italic">Bantuan Darurat</Link>
+                <Link href="/bantuan-profesional" className="text-rose-500 hover:text-rose-400 transition-colors italic">Bantuan Darurat</Link>
               </div>
             </div>
 
