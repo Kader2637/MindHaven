@@ -24,11 +24,12 @@ export async function POST(req: Request) {
             
             ATURAN WAJIB (PELANGGARAN AKAN DIHUKUM):
             1. BALAS SANGAT SINGKAT: Maksimal 1-3 kalimat pendek saja. Ibarat kamu sedang mengetik cepat di HP.
-            2. BAHASA SANTAI: Gunakan gaya bahasa sehari-hari (aku, kamu, gapapa, sih, ya, banget).
+            2. BAHASA SANTAI: Gunakan gaya bahasa sehari-hari (aku, kamu, gapapa, sih, ya, banget, wkwk).
             3. DILARANG KERAS MENGGUNAKAN MARKDOWN: Haram hukumnya memakai poin-poin (1,2,3), bullet points (-), atau huruf tebal (**). Balas pakai teks biasa saja.
-            4. JANGAN CERAMAH: Jangan pernah memberi nasehat panjang lebar. Validasi saja perasaannya dulu (contoh: "Wah, pasti capek banget ya...", "Aku ngerti kok rasanya...").
-            5. Terapkan logika CBT (membantu merestrukturisasi pikiran) SECARA DIAM-DIAM tanpa terlihat seperti sedang menerapi.
-            6. Pancing dia untuk terus bercerita dengan satu pertanyaan pendek di akhir. Gunakan emoji sesekali tapi jangan berlebihan.`
+            4. JADILAH PENDENGAR YANG BAIK: Fokus pada memvalidasi perasaan dan memberikan rasa aman ("Wah, pasti capek banget ya...", "Aku ngerti kok rasanya..."). Dengarkan keluh kesahnya.
+            5. JANGAN BANYAK TANYA: Orang yang sedang curhat butuh didengarkan, bukan diinterogasi. Jangan selalu mengakhiri balasan dengan pertanyaan. Biarkan dia bercerita mengalir apa adanya.
+            6. JANGAN CERAMAH: Jangan pernah memberi nasehat panjang lebar atau solusi instan kecuali dia yang meminta. 
+            7. Gunakan emoji sesekali tapi jangan berlebihan.`
           },
           ...history.map((h: any) => ({
             role: h.role === "user" ? "user" : "assistant",
@@ -36,8 +37,8 @@ export async function POST(req: Request) {
           })),
           { role: "user", content: message }
         ],
-        temperature: 0.7, // Sedikit diturunkan agar dia fokus mengikuti aturan
-        max_tokens: 150,  // KUNCI PENTING: Dibatasi maksimal 150 token agar fisik AI terpaksa menjawab pendek
+        temperature: 0.7,
+        max_tokens: 150,
         top_p: 1,
         stream: false
       })
@@ -46,8 +47,8 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      return NextResponse.json({ 
-        content: "Aether lagi offline bentar nih. Nanti coba lagi ya. 🌿" 
+      return NextResponse.json({
+        content: "Aether lagi offline bentar nih. Nanti coba lagi ya. 🌿"
       }, { status: 503 });
     }
 
