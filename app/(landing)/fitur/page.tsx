@@ -91,7 +91,7 @@ export default function FiturPage() {
         <div className="max-w-6xl mx-auto px-6">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="text-center space-y-8">
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-emerald-100 text-emerald-800 font-black text-[10px] uppercase tracking-[0.3em] shadow-sm">
-              <Sparkles size={14} className="text-emerald-500 animate-pulse" /> Platform MindHaven v2.0
+              <Sparkles size={14} className="text-emerald-500 animate-pulse" /> Platform MindHaven
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.95] tracking-tighter italic">
